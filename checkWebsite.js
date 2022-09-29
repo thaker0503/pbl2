@@ -47,7 +47,7 @@ export function website(url) {
 
   const options = {
     method: 'POST',
-    url: 'https://www.virustotal.com/api/v3/urls',
+    url: 'https://cors-anywhere.herokuapp.com/https://www.virustotal.com/api/v3/urls',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -61,7 +61,7 @@ export function website(url) {
     .request(options)
     .then(function (response) {
       getAnalysis(response.data.data.id);
-      // console.log(response);
+      // console.log(response.data);
     })
     .catch(function (error) {
       console.error(error);
@@ -72,7 +72,7 @@ export function website(url) {
 function getAnalysis(id){
   const options = {
   method: 'GET',
-  url: `https://www.virustotal.com/api/v3/analyses/${id}`,
+    url: `https://cors-anywhere.herokuapp.com/https://www.virustotal.com/api/v3/analyses/${id}`,
   headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -84,7 +84,12 @@ function getAnalysis(id){
   axios
     .request(options)
     .then(function (response) {
-      console.log("Response ==>" ,response.data);
+      if (response.data.data.attributes.status === 'completed') {
+        console.log(response.data.data.attributes.stats)
+      } else {
+        console.log("Getting Analysis ==>")
+        getAnalysis(id)
+      }
     })
     .catch(function (error) {
       console.error(error);
