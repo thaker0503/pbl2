@@ -10,61 +10,86 @@
 // 8. if the website is not safe, display a message to the user
 // 9. if the website is not safe, display the number of malicious websites that the website is linked to
 
-const API_KEY = "7aaa038e271ce99f15f498ba2a9bc34f0b926bd0244783cc7a0cb040aff53ae6"
+// const API_KEY = "7aaa038e271ce99f15f498ba2a9bc34f0b926bd0244783cc7a0cb040aff53ae6"
 
 
-import axios from 'axios';
+// import axios from 'axios';
 
 export function website(url) {
-  const encodedParams = new URLSearchParams();
-  encodedParams.set('apikey', '7aaa038e271ce99f15f498ba2a9bc34f0b926bd0244783cc7a0cb040aff53ae6');
-  encodedParams.set('url', url);
-
+  // const encodedParams = new URLSearchParams();
+  // encodedParams.set('apikey', '7aaa038e271ce99f15f498ba2a9bc34f0b926bd0244783cc7a0cb040aff53ae6');
+  // encodedParams.set('url', url);
+  url = urlencode(url);
+  const key = "gK9daycB4hvyLu7b0iykkB1ARUasZDkm";
   const options = {
     method: 'POST',
-    url: 'https://www.virustotal.com/api/v3/urls',
+    url: `https://ipqualityscore.com/api/json/url/${key}/${url}`,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      'x-apikey': '7aaa038e271ce99f15f498ba2a9bc34f0b926bd0244783cc7a0cb040aff53ae6',
+      // 'IPQS-KEY': 'gK9daycB4hvyLu7b0iykkB1ARUasZDkm',
       'Access-Control-Allow-Origin': '*',
     },
-    data: encodedParams,
+    // data: encodedParams,
   };
 
-  axios
-    .request(options)
-    .then(function (response) {
-      getAnalysis(response.data.data.id);
-      // console.log(response);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-
-}
-
-function getAnalysis(id){
-  const options = {
-  method: 'GET',
-  url: `https://www.virustotal.com/api/v3/analyses/${id}`,
-  headers: {
+  fetch(`https://ipqualityscore.com/api/json/url?key=gK9daycB4hvyLu7b0iykkB1ARUasZDkm&url=https%3A%2F%2Fgoogle.com`, {
+    method: "GET",
+    headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      'x-apikey': '7aaa038e271ce99f15f498ba2a9bc34f0b926bd0244783cc7a0cb040aff53ae6',
+      // 'IPQS-KEY': 'gK9daycB4hvyLu7b0iykkB1ARUasZDkm',
       'Access-Control-Allow-Origin': '*',
+      // "mode": "no-cors"
     }
-  };
+  }).then(r => r.json()).then(data => console.log(data))
 
-  axios
-    .request(options)
-    .then(function (response) {
-      console.log("Response ==>" ,response.data.data.attributes.stats);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+
+  // const options = {
+  //   method: 'POST',
+  //   url: 'https://www.virustotal.com/api/v3/urls',
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/x-www-form-urlencoded',
+  //     'x-apikey': '7aaa038e271ce99f15f498ba2a9bc34f0b926bd0244783cc7a0cb040aff53ae6',
+  //     'Access-Control-Allow-Origin': '*',
+  //   },
+  //   data: encodedParams,
+  // };
+
+  // axios
+  //   .request(options)
+  //   .then(function (response) {
+  //     // getAnalysis(response.data.data.id);
+  //     console.log(response);
+  //   })
+  //   .catch(function (error) {
+  //     console.error(error);
+  //   });
+
 }
+
+// function getAnalysis(id){
+//   const options = {
+//   method: 'GET',
+//   url: `https://www.virustotal.com/api/v3/analyses/${id}`,
+//   headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//       'x-apikey': '7aaa038e271ce99f15f498ba2a9bc34f0b926bd0244783cc7a0cb040aff53ae6',
+//       'Access-Control-Allow-Origin': '*',
+//     }
+//   };
+
+//   axios
+//     .request(options)
+//     .then(function (response) {
+//       console.log("Response ==>" ,response.data.data.attributes.stats);
+//     })
+//     .catch(function (error) {
+//       console.error(error);
+//     });
+// }
 
 
 
