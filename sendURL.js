@@ -12,6 +12,13 @@ export function sendUrl(url) {
         })
     }).then(r => r.json()).then(d => {
         console.log(d)
-        app.innerHTML += JSON.stringify(d.data)
+        // app.innerHTML += JSON.stringify(d.data)
+        neatJSON(d)
     })
+}
+
+function neatJSON(d) {
+    const code = document.getElementById("code");
+    console.log(code)
+    code.innerHTML = JSON.stringify(d, null, 2);
 }
