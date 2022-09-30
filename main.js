@@ -15,6 +15,7 @@ app.innerHTML = `
 const button = document.querySelector('#button')
 
 button.addEventListener('click', () => {
+  document.getElementById("code").innerHTML = "Loading..."
   const url = document.querySelector('#url').value
   console.log('button clicked')
   console.log(url)
